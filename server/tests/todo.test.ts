@@ -10,6 +10,13 @@ interface userReponseType {
     password: string,
 }
 
+interface todoReponseType {
+    id: string,
+    title: string,
+    description: string,
+    userId: string,
+}
+
 const secretKey = process.env.SECRET_KEY;
 
 describe('GET /api/auth/todo/:user_id', () => {
@@ -99,6 +106,105 @@ describe('POST /api/auth/todo/:user_id', () => {
         expect(response.status).toBe(400);
         expect(body.error).toBeDefined();
     });
+
+    it('should post todo if request body is valid', async () => {
+        const response = await app.request(`/api/auth/todo/${userResponse.id}`, {
+            method: "post",
+            body: JSON.stringify({
+                title: "First title",
+                description: "This is first title",
+                userId: userResponse.id
+            }),
+            headers: {
+                Authorization: `Bearer ${await jwt.sign(userResponse, secretKey!, { expiresIn: '1h' })}`
+            } 
+        });
+
+        const body = await response.json();
+        
+        expect(response.status).toBe(200);
+        expect(body.msg).toBeDefined();
+    });
+});
+
+describe('PUT /api/auth/todo/:user_id/:id', () => {
+    let userResponse: userReponseType;
+    let todoResponse: todoReponseType;
+    
+    beforeEach(async () => {
+        userResponse = await createUser();
+        todoResponse = await createTodo(userResponse.id);
+    })
+
+    afterEach(async () => {
+        await deleteTodo(userResponse.id!);
+        await deleteUser();
+    })
+
+    it('should not update if request body is invalid', async () => {
+        const response = await app.request(`/api/auth/todo/${userResponse.id}/${todoResponse.id}`, {
+            method: "put",
+            body: JSON.stringify({
+                title: "",
+                description: ""
+            }),
+            headers: {
+                Authorization: `Bearer ${await jwt.sign(userResponse, secretKey!, { expiresIn: '1h' })}`
+            } 
+        });
+
+        const body = await response.json();
+
+        expect(response.status).toBe(400);
+        expect(body.error).toBeDefined();
+    });
+    
+    it('should update if request body is valid', async  () => {
+        const response = await app.request(`/api/auth/todo/${userResponse.id}/${todoResponse.id}`, {
+            method: "put",
+            body: JSON.stringify({
+                title: "Second title",
+                description: "This second titles"
+            }),
+            headers: {
+                Authorization: `Bearer ${await jwt.sign(userResponse, secretKey!, { expiresIn: '1h' })}`
+            } 
+        });
+
+        const body = await response.json();
+
+        expect(response.status).toBe(200);
+        expect(body.msg).toBeDefined();
+    });
     
 });
 
+describe('DELETE /api/auth/todo/:user_id/:id', () => {
+    let userResponse: userReponseType;
+    let todoResponse: todoReponseType;
+    
+    beforeEach(async () => {
+        userResponse = await createUser();
+        todoResponse = await createTodo(userResponse.id);
+    })
+
+    afterEach(async () => {
+        await deleteTodo(userResponse.id!);
+        await deleteUser();
+    })
+
+    it('should delete todo by user id', async () => {
+        const response = await app.request(`/api/auth/todo/${userResponse.id}/${todoResponse.id}`, {
+            method: "delete",
+            headers: {
+                Authorization: `Bearer ${await jwt.sign(userResponse, secretKey!, { expiresIn: '1h' })}`
+            } 
+        });
+
+        const body = await response.json();
+
+        expect(response.status).toBe(200);
+        expect(body.msg).toBeDefined();
+    });
+    
+});
