@@ -2,10 +2,12 @@ import { Hono } from "hono";
 import publicRoute from "./routes/public.route";
 import { HTTPException } from "hono/http-exception";
 import { ZodError } from "zod";
+import protectedRoute from "./routes/protected.route";
 
 const app = new Hono();
 
 app.route("/api", publicRoute.publicRoute);
+app.route("/api/auth", protectedRoute.protectedRoute);
 
 // handle http error and exception
 app.onError(async (err, c) => {

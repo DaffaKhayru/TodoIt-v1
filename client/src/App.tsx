@@ -3,13 +3,15 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 
 // import layouts
 import AuthLayout from './layouts/AuthLayout';
+import UserLayout from './layouts/UserLayout';
 
 // import pages
-const signup = lazy(() => import("./pages/Signup"))
+const Signup = lazy(() => import("./pages/Signup"));
+const Login = lazy(() => import("./pages/Login"));
+const Inbox = lazy(() => import("./pages/Inbox"));
 
 // import loading screen
 import Loading from './Loading';
-import Signup from './pages/Signup';
 
 const App = () => {
   return (
@@ -18,12 +20,12 @@ const App = () => {
         {/* auth routes */}
         <Route path='/' element={<AuthLayout />}>
           <Route path='/signup' element={<Suspense fallback={<Loading />}> <Signup /> </Suspense>} />
-          <Route path='/login' />
+          <Route path='/login' element={<Suspense fallback={<Loading />}> <Login /> </Suspense>} />
         </Route>
 
         {/* user routes */}
-        <Route>
-
+        <Route path='/' element={<UserLayout />}>
+          <Route path='/inbox' element={<Suspense fallback={<Loading />}> <Inbox /> </Suspense>} />
         </Route>
       </Routes>
     </BrowserRouter>

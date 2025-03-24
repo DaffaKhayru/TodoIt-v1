@@ -4,7 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { SiTodoist } from "react-icons/si";
 
-const Signup = () => {
+const Login = () => {
     return (
         <div className='w-[48%]'>
             {/* icon title */}
@@ -13,16 +13,13 @@ const Signup = () => {
             </div>
 
             {/* title */}
-            <h1 className='mb-2 text-center text-2xl font-semibold'>Signup</h1>
+            <h1 className='mb-2 text-center text-2xl font-semibold'>Login</h1>
 
             {/* greeter */}
             <p className='text-center'>Hello, everyone</p>
 
             {/* signup form */}
             <form className='flex flex-col'>
-                <label className='mb-1'>Username</label>
-                <input type="text" placeholder='Your username' className='mb-2 px-4 py-1 bg-gray-50 border-2 rounded-sm focus-within:outline-blue-500 border-gray-300' />
-
                 <label className='mb-1'>Email</label>
                 <input type="email" placeholder='name@gmail.com' className='mb-2 px-4 py-1 bg-gray-50 border-2 rounded-sm focus-within:outline-blue-500 border-gray-300' />
 
@@ -32,8 +29,8 @@ const Signup = () => {
                 <div className='flex justify-between items-center mt-2'>
                     <input type="submit" value='Signup' className='cursor-pointer text-white bg-blue-500 p-2 rounded-sm hover:bg-blue-600 duration-200' />
 
-                    <p>Already have account? 
-                        <Link to='/login' className='hover:text-blue-500 duration-200'> Login</Link>
+                    <p>Don't have account? 
+                        <Link to='/signup' className='hover:text-blue-500 duration-200'> Signup</Link>
                     </p>
                 </div>
             </form>
@@ -60,4 +57,4 @@ const Signup = () => {
     );
 }
 
-export default Signup;
+export default Login;

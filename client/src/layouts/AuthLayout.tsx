@@ -6,7 +6,9 @@ const AuthLayout = () => {
     return (
         <div className='h-screen grid grid-cols-2'>
             <Greeting />
-            <Outlet />
+            <main className='flex justify-center'>
+                <Outlet />
+            </main>
         </div>
     );
 }
