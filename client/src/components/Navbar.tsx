@@ -8,9 +8,16 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { SiTodoist } from "react-icons/si";
 import { IoMdArrowDropdown } from "react-icons/io";
 import useSidebar from '../store/useSidebar';
+import useAddTodo from '../store/useAddTodo';
+import useAbout from '../store/useAbout';
+import useUserProfile from '../store/useUserProfile';
+import UserProfile from './UserProfile';
 
 const Navbar = () => {
     const {toggleSidebar} = useSidebar();
+    const {toggleAddTodo} = useAddTodo();
+    const {toggleAbout} = useAbout();
+    const {isUserProfileVisible,toggleUserProfile} = useUserProfile();
 
     const location = useLocation();
 
@@ -43,12 +50,12 @@ const Navbar = () => {
             {/* options */}
             <div className='flex items-center'>
                 {/* add button */}
-                <div className='p-4 hover:bg-gray-200 duration-200 cursor-pointer'>
+                <div onClick={toggleAddTodo} className='p-4 hover:bg-gray-200 duration-200 cursor-pointer'>
                     <IoAdd size={27} />
                 </div>
 
                 {/* add button */}
-                <div className='p-4 hover:bg-gray-200 duration-200 cursor-pointer'>
+                <div onClick={toggleAbout} className='p-4 hover:bg-gray-200 duration-200 cursor-pointer'>
                     <MdQuestionMark size={26} />
                 </div>
 
@@ -58,10 +65,12 @@ const Navbar = () => {
                 </div>
 
                 {/* add button */}
-                <div className='flex items-center gap-3 p-4 hover:bg-gray-200 duration-200 cursor-pointer'>
+                <div onClick={toggleUserProfile} className='flex items-center gap-3 p-4 hover:bg-gray-200 duration-200 cursor-pointer'>
                     <SiTodoist className='text-blue-500' size={25} />
-                    <IoMdArrowDropdown className='' size={24} />
+                    <IoMdArrowDropdown className={`${isUserProfileVisible ? "rotate-180" : ""} duration-200`} size={24} />
                 </div>
+
+                {isUserProfileVisible && <UserProfile />}
             </div>
         </div>
     );

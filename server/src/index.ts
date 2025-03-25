@@ -1,10 +1,18 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import publicRoute from "./routes/public.route";
 import { HTTPException } from "hono/http-exception";
 import { ZodError } from "zod";
 import protectedRoute from "./routes/protected.route";
 
 const app = new Hono();
+
+app.use('/api/*', cors({
+    origin: 'http://localhost:5173',
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+}) )
 
 app.route("/api", publicRoute.publicRoute);
 app.route("/api/auth", protectedRoute.protectedRoute);
