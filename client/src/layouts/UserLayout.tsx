@@ -7,12 +7,14 @@ import { Outlet } from 'react-router';
 import useSidebar from '../store/useSidebar';
 import AddTodo from '../components/AddTodo';
 import useAddTodo from '../store/useAddTodo';
-import useAbout from '../store/useAbout';
+import Setting from '../components/Setting';
+import useAccount from '../store/useAccount';
+import Account from '../components/Account';
 
 const UserLayout = () => {
     const {isSidebarWide} = useSidebar();
     const {isAddTodoVisible} = useAddTodo();
-    const {isAboutVisible} = useAbout();
+    const {isAccountVisible} = useAccount();
 
     return (
         <div className={`${isSidebarWide ? "grid-cols-[16rem_1fr]" : "grid-cols-[0_1fr]"} relative duration-200 h-screen grid  grid-rows-[3.2rem_1fr]`}>
@@ -20,16 +22,11 @@ const UserLayout = () => {
             <Navbar />
             <Outlet />
 
-            <AnimatePresence>
-                {isAddTodoVisible && <AddTodo />}
-            </AnimatePresence>
-            
-            {isAboutVisible && 
-                <div className='fixed top-0 left-0 bg-[rgba(0,0,0,0.1)] z-10 h-screen w-full'></div>
-            }
-            
-            <About />
+            {isAddTodoVisible && <AddTodo />}
+            {isAccountVisible && <Account />}
 
+            <About />
+            <Setting />
         </div>
     );
 }

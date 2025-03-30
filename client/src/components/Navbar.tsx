@@ -12,11 +12,13 @@ import useAddTodo from '../store/useAddTodo';
 import useAbout from '../store/useAbout';
 import useUserProfile from '../store/useUserProfile';
 import UserProfile from './UserProfile';
+import useSetting from '../store/useSetting';
 
 const Navbar = () => {
     const {toggleSidebar} = useSidebar();
     const {toggleAddTodo} = useAddTodo();
     const {toggleAbout} = useAbout();
+    const {toggleSetting} = useSetting();
     const {isUserProfileVisible,toggleUserProfile} = useUserProfile();
 
     const location = useLocation();
@@ -60,7 +62,7 @@ const Navbar = () => {
                 </div>
 
                 {/* add button */}
-                <div className='p-4 hover:bg-gray-200 duration-200 cursor-pointer'>
+                <div onClick={toggleSetting} className='p-4 hover:bg-gray-200 duration-200 cursor-pointer'>
                     <IoSettingsOutline size={26} />
                 </div>
 
