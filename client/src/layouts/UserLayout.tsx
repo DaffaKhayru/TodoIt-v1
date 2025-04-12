@@ -9,12 +9,15 @@ import AddTodo from '../components/AddTodo';
 import useAddTodo from '../store/useAddTodo';
 import Setting from '../components/Setting';
 import useAccount from '../store/useAccount';
+import useEditTodo from '../store/useEditTodo';
 import Account from '../components/Account';
+import EditTodo from '../components/EditTodo';
 
 const UserLayout = () => {
     const {isSidebarWide} = useSidebar();
     const {isAddTodoVisible} = useAddTodo();
     const {isAccountVisible} = useAccount();
+    const {isEditTodoVisible} = useEditTodo();
 
     return (
         <div className={`${isSidebarWide ? "grid-cols-[16rem_1fr]" : "grid-cols-[0_1fr]"} relative duration-200 h-screen grid  grid-rows-[3.2rem_1fr]`}>
@@ -24,6 +27,7 @@ const UserLayout = () => {
 
             {isAddTodoVisible && <AddTodo />}
             {isAccountVisible && <Account />}
+            {isEditTodoVisible && <EditTodo />}
 
             <About />
             <Setting />

@@ -70,3 +70,30 @@ describe('PUT /api/auth/user/:id', () => {
     });
     
 });
+
+describe('DELETE /api/auth/user/:id', () => {
+    let userResponse:  userResponseTypes;
+
+    beforeEach(async () => {
+        userResponse = await createUser();
+    });
+
+    afterEach(async () => {
+        await deleteUser();
+    });
+
+    it('should delete current user', async () => {
+        const response = await app.request(`/api/auth/user/${userResponse.id}`, {
+            method: 'delete',
+            headers: {
+                Authorization: `Bearer ${await jwt.sign(userResponse, secretKey!, { expiresIn: '1h' })}`
+            }
+        });
+
+        const body = await response.json();
+
+        expect(response.status).toBe(200);
+        expect(body.msg).toBeDefined();
+    });
+    
+});

@@ -6,9 +6,9 @@ const UserProfile = () => {
     const {toggleAccount} = useAccount();
 
     return (
-        <div onClick={toggleAccount} className='bg-white border border-blue-500 absolute top-14 right-5'>
+        <div className='bg-white border border-blue-500 absolute top-14 right-5'>
             {/* user profile */}
-            <div className='flex flex-col justify-center py-2 px-4 cursor-pointer hover:bg-gray-100 duration-200 border-b border-gray-300'>
+            <div onClick={toggleAccount} className='flex flex-col justify-center py-2 px-4 cursor-pointer hover:bg-gray-100 duration-200 border-b border-gray-300'>
                 <h1 className=''>daffakhayru</h1>
                 <p>daffakhayru@gmail.com</p>
             </div>

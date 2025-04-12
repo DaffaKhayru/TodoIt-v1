@@ -3,7 +3,7 @@ import useAccount from '../store/useAccount';
 import { SiTodoist } from "react-icons/si";
 
 const Account = () => {
-    const {} = useAccount();
+    const {toggleAccount} = useAccount();
 
     return (
         <div className='flex justify-center items-center absolute top-0 left-0 h-screen w-full bg-[rgba(0,0,0,0.1)]'>
@@ -21,8 +21,9 @@ const Account = () => {
                     <label className='mt-2'>Password</label>
                     <input placeholder="**********" type="password" className='mt-1 py-1 px-4 bg-gray-50 border border-gray-300 rounded-sm focus-within:outline-blue-500'/>
 
-                    <div className='flex justify-between'>
-                        
+                    <div className='flex mt-4 items-center justify-between'>
+                        <input type="submit" value="Change" className='text-white bg-blue-500 hover:bg-blue-600 duration-200 rounded-sm p-2 cursor-pointer' />
+                        <button onClick={toggleAccount} className='bg-gray-100 cursor-pointer p-2 rounded-sm hover:bg-gray-200 duration-200'>Cancel</button>
                     </div>
                 </form>
             </div>

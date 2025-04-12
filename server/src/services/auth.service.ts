@@ -33,7 +33,7 @@ export const signup = async (reqBody: userSignupReq) => {
         data: {
             username: userReq.username,
             email: userReq.email,
-            password: userReq.password
+            password: hashingPassword,
         }
     });
 
